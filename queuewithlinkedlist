@@ -1,0 +1,80 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node 
+{
+	int data;
+	struct node * next;
+};
+struct node *createnode(int x);
+struct node *front=NULL;
+struct node *rare=NULL;
+void insert(int x);
+void traverse();
+int delete1();
+int main()
+{
+	int op;
+	int x;
+	while(1)
+	{
+		printf("enter the option 1:insert 2:delete 3:traverse 4:exit\n");
+		scanf("%d",&op);
+		switch(op)
+		{
+			case 1: printf("enter the value to insert\n");
+			        scanf("%d",&x);
+			        insert(x);break;
+			case 2: x=delete1();
+			        printf("enter the value to deleted is %d\n",x);
+			         break;
+			case 3: traverse(); break;
+			case 4: exit(0);break;
+			
+		}
+	}
+}
+struct node *createnode(int x)
+{
+	struct node *p;
+	p=(struct node *)malloc(sizeof(struct node));
+	p->data=x;
+	p->next=NULL;
+	return(p);
+}
+
+void insert(int x)
+{
+	struct node *p,*q;
+	p=createnode(x);
+	if(rare==NULL)
+	{
+	front=p;
+	rare=p;
+    }
+	else
+	{
+	rare->next=p;
+	rare=p;
+	}
+}
+void traverse()
+{
+	struct node *q;
+	q=front;
+	while(q->next!=NULL)
+	{
+		printf("%d ->",q->data);
+		q=q->next;
+	}
+	printf("%d\n",q->data);
+}
+
+int delete1()
+{
+	struct node *q;
+	q=front;
+	int x=q->data;
+	front=q->next;
+	free(q);
+	return(x);
+}
