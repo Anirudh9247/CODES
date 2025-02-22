@@ -1,0 +1,131 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+	int key;
+	int value;
+	struct node *next;
+};
+struct node *start=NULL;
+struct node * createnode(int k);
+void put(int k);
+int get(int k);
+int remove(int k);
+void traverse();
+int main()
+{
+	int op,x,k;
+	while(1)
+	{
+		printf("enter the option 1:put 2:get 3:remove 4:traverse 5:exit\n");
+		scanf("%d",&op);
+		switch(op)
+		{
+			case 1: printf("enter the key value to insert\n");
+			        scanf("%d",&k);
+			        put(k);
+			        break;
+			case 2: printf("enter the key value for getting\n");
+			        scanf("%d",&k);
+			        x=get(k);
+			        printf("value is %d",x);
+			        break;
+			case 3: printf("enter the key value to delete\n");
+			        scanf("%d",&k);
+			        remove(k);
+			        break;
+			case 4: traverse();
+			        break;
+			case 5:exit(0);	
+		}
+	}
+}
+
+struct node * createnode(int k)
+{
+	struct node *p;
+	int x;
+	p=(struct node *)malloc(sizeof(struct node));
+	printf("enter the value fot the key %d \n",k);
+	scanf("%d",&x);
+	p->key=k;
+	p->value=x;
+	p->next=NULL;
+	return(p);
+}
+
+void put(int k)
+{
+	struct node *p,*q,*prev;
+	p=createnode(k);
+	if(start==NULL)
+	start=p;
+	else
+	{
+		q=start;
+		while((q!=NULL)&&(q->key<p->key))
+		{
+		prev=q;
+		q=q->next;
+	    }
+	   if(q==start)
+	   {
+	   	p->next=q;
+	   	start=p;
+	   }
+	   else
+	   {
+	   p->next=prev->next;
+	   prev->next=p;
+       }
+	}
+}
+
+int get(int k)
+{
+	struct node *q;
+	q=start;
+	while((q->key!=k)&&(q!=NULL))
+	q=q->next;
+	if(q!=NULL)
+	{
+		return(q->value);
+	}
+	else
+	{
+		printf("key not found\n");
+		return(-1);
+	}
+}
+
+int remove(int k)
+{
+	struct node *q;
+	q=start;
+	while(q->key!=k)
+	q=q->next;
+	if(start==q)
+	start=q->next;
+	else
+	{
+		struct node *r;
+		r=start;
+		while(r->next!=q)
+		r=r->next;
+		r->next=q->next;
+	}
+	free(q);	
+}
+
+void traverse()
+{
+	struct node *q;
+	q=start;
+	while(q->next!=NULL)
+	{
+		printf("{ %d , %d },",q->key,q->value);
+		q=q->next;
+	}
+	printf("{ %d , %d }\n",q->key,q->value);
+}
+
