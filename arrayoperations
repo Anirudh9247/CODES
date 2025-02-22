@@ -1,0 +1,122 @@
+#include<stdio.h>
+#include<stdlib.h>
+int a[100];
+int n=-1;
+int isempty();
+int isfull();
+int search(int key);
+void insert(int ele,int pos);
+int delete1(int ele);
+int main()
+{
+	int op;
+	int x;
+	int key,pos,p;
+	int ele;
+	while(1)
+	{
+		printf("enter the option 1:create 2:delete 3:isempty 4:isfull 5.search 6.insert 7.detete 8. find position 9:traverse 10:exit\n");
+		scanf("%d",&op);
+		switch(op)
+		{
+			case 1:
+				printf("enter the size of the array");
+				scanf("%d",&n);
+				printf("enter n elements\n");
+				for(int i=0;i<n;i++)
+				scanf("%d",&a[i]);
+				break;
+			case 2:n=-1;break;
+			case 3:x=isempty();
+			       if(x==1)
+			       printf("list is empty\n");
+			       else
+			       printf("list is not empty\n");
+			       break;
+			case 4:x=isfull();
+			       if(x==1)
+			       printf("list is full\n");
+			       else
+			       printf("list is not full\n");
+			       break;
+			case 5:printf("enter the key you want to search\n");
+			       
+			       scanf("%d",&key);
+				   x=search(key);
+				   if(x==-1)
+				   printf("the element is not found\n");
+				   else
+				   printf("the element is found at %d position\n",x);
+				   break;
+			case 6:printf("enter the element you want to insert\n");
+				   
+			       scanf("%d",&ele);
+			       printf("enter the position\n");
+			       scanf("%d",&pos);			       	   
+				   insert(ele,pos);
+				   break;
+			case 7:printf("enter the element you want to delete\n");
+				
+			       scanf("%d",&ele);			           	   
+				   delete1(ele);
+				   break;
+			case 8:printf("enter the element you want to find\n");
+				   
+			       scanf("%d",&key);
+			       p=search(key);
+			       printf("the position of %d is %d",key,p);
+			       break;
+			case 9:for(int i=0;i<n;i++)
+				   printf("%d ",a[i]);
+				   printf("\n");
+				   break;
+			default:exit(0);		
+
+		}
+	}
+}
+int isempty()
+{
+	if(n==-1)
+	return(1);
+	else
+	return(0);
+}
+int isfull()
+{
+	if(n==100)
+	return(1);
+	else
+	return(0);
+}
+int search(int key)
+{
+	int x=-1;
+	for(int i=0;i<n;i++)
+	
+		if(a[i]==key)
+		{
+			x=i;		
+			break;
+		}
+		return(x);	
+}
+
+void insert(int ele,int pos)
+{
+	for(int i=n-1;i>=pos;i--)
+		a[i+1]=a[i];
+a[pos]=ele;
+n++;
+}
+
+int delete1(int ele)
+{
+	int x=search(ele);
+	if(x!=-1)
+	{
+		for(int i=x;i<n-1;i++)
+		a[i]=a[i+1];
+	n--;
+	}
+}
