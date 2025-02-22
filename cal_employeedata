@@ -1,0 +1,26 @@
+#include<stdio.h>
+struct emp
+{
+	char name[20];
+	int basicSalary;
+	double hra;
+	double da;
+	
+	double total;
+};
+int main()
+{
+	FILE *fp,*fs;
+	fp=fopen("emp.dat","r");
+	fs=fopen("sal.dat","w");
+	struct emp e;
+	while(fscanf(fp,"%s%d",e.name,&e.basicSalary)!=EOF)
+	{	
+		e.hra=e.basicSalary*0.2;
+		e.da=e.basicSalary*0.5;
+		e.total=e.hra+e.da+e.basicSalary;
+		fprintf(fs,"%s %d %f %f %f \n",e.name,e.basicSalary,e.hra,e.da,e.total);
+	}
+	fclose(fp);
+	fclose(fs);
+}
