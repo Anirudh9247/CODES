@@ -1,0 +1,130 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node 
+{
+	struct node *prev;
+	int data;
+	struct node * next;
+};
+struct node *createnode();
+struct node *start=NULL;
+void create();
+void traverse();
+void insert();
+void search();
+void delete1();
+int main()
+{
+	int op;
+	while(1)
+	{
+		printf("enter the option 1: create 2:insert after 3:delete 4:search 5:traverse 6:exit\n");
+		scanf("%d",&op);
+		switch(op)
+		{
+			case 1: create();break;
+			case 2: insert();break;
+			case 3: delete1();break;
+			case 4: search();break;
+			case 5: traverse(); break;
+			case 6: exit(0);break;
+			
+		}
+	}
+}
+struct node *createnode()
+{
+	struct node *p;
+	p=(struct node *)malloc(sizeof(struct node));
+	int x;
+	printf("enter the data\n");
+	scanf("%d",&x);
+	p->prev=NULL;
+	p->data=x;
+	p->next=NULL;
+	return(p);
+}
+
+void create()
+{
+	struct node *p,*q;
+	p=createnode();
+	if(start==NULL)
+	start=p;
+	else
+	{
+		q=start;
+		while(q->next!=NULL)
+		q=q->next;
+		p->prev=q;
+		q->next=p;
+	}
+}
+void traverse()
+{
+	struct node *q;
+	q=start;
+	while(q->next!=NULL)
+	{
+		printf("%d <->",q->data);
+		q=q->next;
+	}
+	printf("%d\n",q->data);
+}
+void insert()
+{
+	struct node *p;
+	p=createnode();
+	printf("enter after which you want to insert\n");
+	int x;
+	scanf("%d",&x);
+	struct node *q;
+	q=start;
+	while(q->data!=x)
+		q=q->next;
+	p->prev=q;
+	p->next=q->next;
+	q->next->prev=p;
+	q->next=p;
+}
+void search()
+{
+	printf("enter the data you want to search\n");
+	int x;
+	scanf("%d",&x);
+	int flag=0;
+	struct node *q;
+	q=start;
+	while((q!=NULL)&&(flag==0))
+	{
+		if(q->data==x)
+		flag=1
+		;
+	    q=q->next;
+	}
+	if(flag==1)
+	printf("element found\n");
+	else
+	printf("element not found\n");
+}
+void delete1()
+{
+	printf("enter data you want to delete\n");
+	int x;
+	scanf("%d",&x);
+	struct node *q;
+	q=start;
+	while(q->data!=x)
+	q=q->next;
+	if(start==q)
+	{	
+	start=q->next;
+	q->next->prev=NULL;
+	}
+	else
+	{
+		q->next->prev=q->prev;
+		q->prev->next=q->next;		
+	}
+	free(q);
+}
