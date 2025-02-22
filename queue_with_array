@@ -1,0 +1,100 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define MAX 3
+int front=-1;
+int rare=-1;
+int queue[MAX];
+void insert(int x);
+int delete1();
+int isempty();
+int isfull();
+void traverse();
+int main()
+{
+	int op;
+	int x;
+	while(1)
+	{
+		printf("enter the option 1:insert 2:delete 3:traverse 4:isfull 5:isempty 6:exit\n");
+		scanf("%d",&op);
+		switch(op)
+		{
+			case 1:
+			       printf("enter the value to be inserted\n");
+			       scanf("%d",&x);
+			       insert(x);
+			       break;
+			case 2:
+			       x=delete1();
+			       if(x==-1)
+			       printf("queue is empty\n");
+			       else
+			       printf("the element deleted is %d\n",x);
+			       break;
+			case 3:traverse();break;
+			case 4:x=isfull();
+			       if(x==1)
+			       printf("queue is full\n");
+			       else
+			       printf("queue is not full\n");
+			       break;
+			case 5:x=isempty();
+			       if(x==1)
+			       printf("queue is empty\n");
+			       else
+			       printf("queue is not empty\n");
+			       break;
+			case 6:exit(0);			        
+		}		
+	}
+}
+
+void insert(int x)
+{
+	if(!isfull())
+	{
+		front++;
+		queue[front]=x;
+	}
+	else
+	printf("queue is full\n");
+}
+
+int delete1()
+{
+	int x=-1;
+	if(!isempty())
+	{
+		rare++;
+		x=queue[rare];
+		
+	}
+	
+	return(x);
+}
+
+
+int isempty()
+{
+	if(front==rare)
+	return(1);
+	else
+	return(0);
+}
+
+int isfull()
+{
+	if(front==MAX-1)
+	return(1);
+	else
+	return(0);
+
+}
+
+void traverse()
+{
+	 for(int i=rare+1;i<=front;i++)
+	 printf("%d ",queue[i]);
+	 printf("\n");
+}
+
