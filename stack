@@ -1,0 +1,112 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define MAX 3
+int top=-1;
+int stack[MAX];
+void push(int x);
+int pop();
+int peek();
+int isempty();
+int isfull();
+void traverse();
+int main()
+{
+	int op;
+	int x;
+	while(1)
+	{
+		printf("enter the option 1:push 2:pop 3:peek 4:traverse 5:isfull 6:isempty 7:exit\n");
+		scanf("%d",&op);
+		switch(op)
+		{
+			case 1:
+			       printf("enter the value to be inserted\n");
+			       scanf("%d",&x);
+			       push(x);
+			       break;
+			case 2:
+			       x=pop();
+			       if(x==-1)
+			       printf("stack is empty\n");
+			       else
+			       printf("the element poped is %d\n",x);
+			       break;
+			case 3:
+			       x=peek();
+			       if(x==-1)
+			       printf("stack is empty\n");
+			       else
+			       printf("the element peeked is %d\n",x);
+			       break;
+			case 4:traverse();break;
+			case 5:x=isfull();
+			       if(x==1)
+			       printf("stack is full\n");
+			       else
+			       printf("stack is not full\n");
+			       break;
+			case 6:x=isempty();
+			       if(x==1)
+			       printf("stack is empty\n");
+			       else
+			       printf("stack is not empty\n");
+			       break;
+			case 7:exit(0);			        
+		}		
+	}
+}
+
+void push(int x)
+{
+	if(!isfull())
+	{
+		top++;
+		stack[top]=x;
+	}
+	else
+	printf("stack is full\n");
+}
+
+int pop()
+{
+	int x=-1;
+	if(!isempty())
+	{
+		x=stack[top];
+		top--;
+	}
+	return(x);
+}
+
+int peek()
+{
+    int x=-1;
+	if(!isempty())
+		x=stack[top];
+	return(x);	
+}
+
+int isempty()
+{
+	if(top==-1)
+	return(1);
+	else
+	return(0);
+}
+
+int isfull()
+{
+	if(top==MAX-1)
+	return(1);
+	else
+	return(0);
+
+}
+
+void traverse()
+{
+	 for(int i=0;i<=top;i++)
+	 printf("%d ",stack[i]);
+	 printf("\n");
+}
+
